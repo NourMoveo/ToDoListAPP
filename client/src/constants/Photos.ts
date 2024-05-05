@@ -10,6 +10,7 @@ export default {
   WorkIcon: require('../photos/icons/Work.png'),
   TasksIcon: require('../photos/icons/Tasks.png'),
   CalenderIcon: require('../photos/icons/calendar.png'),
+  PlusIcon: require('../photos/icons/plus.png'),
   //Tasks
   UserProfile: require('../photos/Tasks/UserProfile.jpeg'),
   //HomePage

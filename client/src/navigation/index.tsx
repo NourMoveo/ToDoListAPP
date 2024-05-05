@@ -60,8 +60,8 @@ function RootNavigator() {
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Tasks" component={BottomTabsNavigator} />
             <Stack.Screen name="AddTask" component={BottomTabsNavigator} />
-            <Stack.Screen name="GoogleMaps" component={GoogleMaps} />
-            <Stack.Screen name="OpenCamera" component={OpenCamera} />
+            {/* <Stack.Screen name="GoogleMaps" component={GoogleMaps} /> */}
+            {/* <Stack.Screen name="OpenCamera" component={OpenCamera} /> */}
         </Stack.Navigator>
     );
 }
@@ -72,7 +72,6 @@ function RootNavigator() {
 export function BottomTabsNavigator() {
     return (
         <Tab.Navigator
-
             initialRouteName="Tasks" screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -93,7 +92,6 @@ export function BottomTabsNavigator() {
                     borderRadius: 50,
                 }
             }}
-
         >
             <Tab.Screen
                 name="Tasks"
@@ -101,7 +99,7 @@ export function BottomTabsNavigator() {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
-                        <Image src={Photos.HomeIcon} style={{ height: 10, width: 10 }} />
+                        <Image src={Photos.TasksIcon} style={{ height: 10, width: 10 }} />
                     )
                 }}
             />
@@ -110,8 +108,8 @@ export function BottomTabsNavigator() {
                     tabBarLabel: 'Add Task',
                     tabBarIcon: () => (
                         <>
-                            {/* <Image src={Photos.TasksIcon} />
-                            <Text style={[styles.tabsText, { marginBottom: 10 }]}>Add Task</Text> */}
+                            <Image src={Photos.PlusIcon} />
+                            {/* <Text style={[styles.tabsText, { marginBottom: 10 }]}>Add Task</Text> */}
                         </>
                     ),
                     tabBarItemStyle: {
@@ -133,16 +131,15 @@ export function BottomTabsNavigator() {
             <Tab.Screen
                 options={{
                     tabBarLabel: 'Logout',
-                    tabBarIcon: ({ color, size }) => (
+                    tabBarIcon: () => (
                         <>
-                            {/* <Image src={Photos.TasksIcon} style={{ backgroundColor: Colors.darkText, width: "50%", height: "50%" }} /> */}
+                            <Image src={Photos.TasksIcon} />
                             {/* <Text style={styles.tabsText}>Logout</Text> */}
                         </>
                     )
                 }}
                 name="Login" component={Login}
             />
-
         </Tab.Navigator >
     );
 }

@@ -10,15 +10,18 @@ import {
     Dimensions,
     Animated,
     Easing,
+    Button,
 } from "react-native";
 import { RootStackParamList } from "../../types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Colors from "../constants/Colors";
 import DatePicker from "react-native-date-picker";
 import Photos from "../constants/Photos";
+import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera, ImageLibraryOptions } from 'react-native-image-picker';
 const { height, width } = Dimensions.get("window");
 type Props = NativeStackScreenProps<RootStackParamList, "AddTask">;
-
+let launchImageLibrary = _launchImageLibrary;
+let launchCamera = _launchCamera;
 const AddTask: React.FC<Props> = ({ navigation }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -29,6 +32,42 @@ const AddTask: React.FC<Props> = ({ navigation }) => {
     const [fadeAnim] = useState(new Animated.Value(0));
     const [showCamera, setShowCamera] = useState(false);
     const [imageSource, setImageSource] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const openImagePicker = () => {
+        const options: ImageLibraryOptions = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchImageLibrary(options, handleResponse);
+    };
+
+    const handleCameraLaunch = () => {
+        console.log("handleCameraLaunch1")
+        const options: ImageLibraryOptions = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchCamera(options, handleResponse);
+    };
+
+    const handleResponse = (response: any) => {
+        console.log("response:", response)
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('Image picker error: ', response.error);
+        } else {
+            let imageUri = response.uri || response.assets?.[0]?.uri;
+            setSelectedImage(imageUri);
+        }
+    };
 
     useEffect(() => {
         Animated.timing(
@@ -79,6 +118,21 @@ const AddTask: React.FC<Props> = ({ navigation }) => {
             <TouchableOpacity style={styles.dateButton} onPress={() => setDatePickerVisibility(true)}>
                 <Text>{date ? date.toLocaleDateString() : "Pick Date Time"}</Text>
             </TouchableOpacity>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                {selectedImage && (
+                    <Image
+                        source={{ uri: selectedImage }}
+                        style={{ flex: 1 }}
+                        resizeMode="contain"
+                    />
+                )}
+                <View style={{ marginTop: 20 }}>
+                    <Button title="Choose from Device" onPress={openImagePicker} />
+                </View>
+                <View style={{ marginTop: 20, marginBottom: 50 }}>
+                    <Button title="Open Camera" onPress={handleCameraLaunch} />
+                </View>
+            </View>
             <View>
             </View>
             <Modal visible={isDatePickerVisible} transparent animationType="slide">

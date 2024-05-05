@@ -237,7 +237,6 @@ const TasksPage: React.FC<Props> = ({ navigation: { navigate } }) => {
                                             source={Photos.PersonalIcon}
                                             style={{ height: height / 21, width: width / 9.2, opacity: 0.8 }}
                                         />
-
                                     </View>
                                     <Text style={styles.categoryText}>Personal</Text>
                                 </View>
@@ -263,7 +262,7 @@ const TasksPage: React.FC<Props> = ({ navigation: { navigate } }) => {
                         </View>
                         <Text style={styles.tasksCountText}>You have 5 tasks for today</Text>
                         <View style={{ marginTop: width / 20 }}>
-                            <FlatList
+                            {/* <FlatList
                                 data={Tasks.sort((a, b) => Number(a.time) - Number(b.time))}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => (
@@ -285,7 +284,7 @@ const TasksPage: React.FC<Props> = ({ navigation: { navigate } }) => {
                                         <Text style={styles.taskText}>{item.time.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</Text>
                                     </TouchableOpacity>
                                 )}
-                            />
+                            /> */}
                         </View>
                     </View >
                 </ScrollView>
